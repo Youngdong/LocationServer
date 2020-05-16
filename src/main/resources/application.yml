@@ -1,0 +1,7 @@
+grpc:
+  port: 9999
+  enableReflection: false
+  shutdownGrace: 30
+location:
+  storage:
+    fileName: location.db

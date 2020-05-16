@@ -1,0 +1,67 @@
+syntax = "proto3";
+
+package net.flycamel.locationservice;
+
+option java_package = "io.grpc.locationservice";
+
+service LocationService {
+    rpc put (PutRequest) returns (CommonLocationInfo) {}
+    rpc get (GetRequest) returns (CommonLocationInfo) {}
+    rpc search (SearchRequest) returns (SearchResponse) {}
+    rpc history (HistoryRequest) returns (HistoryResponse) {}
+}
+
+message PutRequest {
+    string id = 1;
+    double latitude = 2;
+    double longitude = 3;
+}
+
+message GetRequest {
+    string id = 1;
+}
+
+message CommonLocationInfo {
+    string id = 1;
+    double latitude = 2;
+    double longitude = 3;
+    int64 lastUpdatedEpoch = 4;
+}
+
+message SearchRequest {
+    double latitude = 1;
+    double longitude = 2;
+    double radius = 3;
+}
+
+message SearchResponse {
+    int64 searchTime = 1;
+    int32 resultCount = 2;
+    repeated SearchResultInfo searchResultList = 3;
+}
+
+message SearchResultInfo {
+    string id = 1;
+    double latitude = 2;
+    double longitude = 3;
+    double radius = 4;
+    int64 lastUpdatedEpoch = 5;
+}
+
+message HistoryRequest {
+    string id = 1;
+    int64 startTime = 2;
+    int64 endTime = 3;
+}
+
+message HistoryResponse {
+    string id = 1;
+    int32 resultCount = 2;
+    repeated LocationHistoryInfo historyList = 3;
+}
+
+message LocationHistoryInfo {
+    int64 time = 1;
+    double latitude = 2;
+    double longitude = 3;
+}
